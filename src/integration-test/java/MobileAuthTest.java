@@ -37,7 +37,7 @@ public class MobileAuthTest {
             mobileAuthService.start("37200001", "EST");
             Assert.fail("shouldn't reach here!");
         } catch (MobileAuthException e) {
-            Assert.assertEquals("303", e.getResponse().getErrorCode());
+            Assert.assertEquals("303", e.getErrorCode());
         }
     }
 

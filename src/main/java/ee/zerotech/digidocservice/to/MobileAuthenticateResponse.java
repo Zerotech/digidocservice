@@ -2,8 +2,10 @@ package ee.zerotech.digidocservice.to;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class MobileAuthenticateResponse {
+public class MobileAuthenticateResponse implements Serializable {
     private Integer sesscode;
     private String status;
     private String userIDCode;
@@ -15,6 +17,4 @@ public class MobileAuthenticateResponse {
     private String challengeID;
     private String challenge;
     private String revocationData;
-    private String errorCode;
-    private String errorMessage;
 }

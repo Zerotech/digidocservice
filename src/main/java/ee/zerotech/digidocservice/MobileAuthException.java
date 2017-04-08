@@ -1,19 +1,19 @@
 package ee.zerotech.digidocservice;
 
-import ee.zerotech.digidocservice.to.MobileAuthenticateResponse;
+import lombok.Getter;
 
 /**
  * Exception to push clients to handle exceptional situations.
  */
+@Getter
 public class MobileAuthException extends Exception {
 
-    private MobileAuthenticateResponse response;
+    private String errorCode;
+    private String errorMessage;
 
-    public MobileAuthException(MobileAuthenticateResponse response) {
-        this.response = response;
+    public MobileAuthException(String errorCode, String errorMessage) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
-    public MobileAuthenticateResponse getResponse() {
-        return this.response;
-    }
 }

@@ -52,11 +52,9 @@ public class MobileAuthService {
                 e.printStackTrace();
             }
 
-            MobileAuthenticateResponse response = new MobileAuthenticateResponse();
-            response.setStatus("NOK");
-            response.setErrorCode(e.getFault().getFaultString());
-            response.setErrorMessage(e.getFault().getDetail().getValue());
-            throw new MobileAuthException(response);
+            String errorCode = e.getFault().getFaultString();
+            String errorMessage = e.getFault().getDetail().getValue();
+            throw new MobileAuthException(errorCode, errorMessage);
         }
     }
 
@@ -64,7 +62,7 @@ public class MobileAuthService {
     /**
      * be aware that with waitSignature = true SK timeouts before user timeouts.
      */
-    public MobileAuthenticateStatusResponse wait(int sessionId) {
+    public MobileAuthenticateStatusResponse getStatus(int sessionId) {
         return digidocService.getMobileAuthenticateStatus(sessionId, waitSignature);
     }
 
@@ -74,7 +72,7 @@ public class MobileAuthService {
     public MobileAuthenticateStatusResponse waitWithErrorHandling(int sessionId) {
         for (int i = 0; i < errorsCountToHandle; i++ ) {
             try {
-                return wait(sessionId);
+                return getStatus(sessionId);
             } catch(SOAPFaultException e) {
                 if (this.printStackTraces) {
                     e.printStackTrace();
